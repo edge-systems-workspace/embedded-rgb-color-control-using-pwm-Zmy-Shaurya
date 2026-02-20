@@ -1,57 +1,72 @@
 #include <Arduino.h>
+
 /**
  * @file main.cpp
  * @brief Embedded RGB LED Control (Digital + PWM)
- * @author YOUR_NAME
- * @date YYYY-MM-DD
+ * @author Shaurya Pratap Singh [Zmy-Shaurya]
+ * @date 2026-02-19
  *
  * @details
- * Controls RGB LED using digital ON/OFF
- * and analog PWM brightness control.
+ * Controls an RGB LED using digital ON/OFF and analog PWM brightness control.
+ * Demonstrates simple digital blink and PWM color cycling on three pins.
  */
 
- // TODO 1:
- // Define RED pin (Use 9)
+int RED_pin = 9;
+int GREEN_pin = 10;
+int BLUE_pin = 11;
 
- // TODO 2:
- // Define GREEN pin (Use 10)
-
- // TODO 3:
- // Define BLUE pin (Use 11)
-
+/**
+ * @brief Initialize serial communication and configure LED pins.
+ *
+ * @details
+ * Starts the hardware Serial at 9600 baud and sets the RGB pins as OUTPUT.
+ * Prints an initialization message to the serial console.
+ *
+ * @return void
+ */
 void setup() {
+    Serial.begin(9600);
 
-    // TODO 4:
-    // Initialize Serial communication (9600 baud)
+    pinMode(RED_pin, OUTPUT);
+    pinMode(GREEN_pin, OUTPUT);
+    pinMode(BLUE_pin, OUTPUT);
 
-    // TODO 5:
-    // Configure RGB pins as OUTPUT
-
-    // TODO 6:
-    // Print initialization message
+    Serial.println("RGB LED Initialized!");
 }
 
+/**
+ * @brief Run the LED demo loop: digital blink and PWM color cycle.
+ *
+ * @details
+ * First toggles the red LED using digitalWrite with 1 second intervals.
+ * Then cycles full-brightness red, green, and blue using analogWrite (PWM),
+ * each shown for 1 second. A short pause separates cycles.
+ *
+ * @return void
+ */
 void loop() {
-
     // -------- DIGITAL MODE --------
+    digitalWrite(RED_pin, HIGH);
+    delay(1000);
 
-    // TODO 7:
-    // Turn ON red (digital HIGH)
-
-    // TODO 8:
-    // Turn OFF red
+    digitalWrite(RED_pin, LOW);
+    delay(1000);
 
     // -------- ANALOG (PWM) MODE --------
+    analogWrite(RED_pin, 255);   // Full brightness
+    analogWrite(GREEN_pin, 0);
+    analogWrite(BLUE_pin, 0);
+    delay(1000);
 
-    // TODO 9:
-    // Set RED brightness using analogWrite()
+    analogWrite(RED_pin, 0);
+    analogWrite(GREEN_pin, 255);
+    analogWrite(BLUE_pin, 0);
+    delay(1000);
 
-    // TODO 10:
-    // Set GREEN brightness using analogWrite()
+    analogWrite(RED_pin, 0);
+    analogWrite(GREEN_pin, 0);
+    analogWrite(BLUE_pin, 255);
+    delay(1000);
 
-    // TODO 11:
-    // Set BLUE brightness using analogWrite()
-
-    // TODO 12:
-    // Add delay for visible transition
+    delay(500);
 }
